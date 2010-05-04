@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/simple-random.rb",
-     "test/helper.rb",
-     "test/test_simple-random.rb"
+     "simple-random.gemspec",
+     "test/helper.rb"
   ]
   s.homepage = %q{http://github.com/ealdent/simple-random}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Simple Random Number Generator}
   s.test_files = [
     "test/helper.rb",
-     "test/test_simple-random.rb"
+     "test/test_simple_random.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -42,12 +42,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_development_dependency(%q<shoulda>, [">= 0"])
     else
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_dependency(%q<shoulda>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+    s.add_dependency(%q<shoulda>, [">= 0"])
   end
 end
 
