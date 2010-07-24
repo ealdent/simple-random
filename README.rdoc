@@ -13,7 +13,7 @@ Get random numbers sampled from the following distributions:
 * Uniform
 * Weibull
 
-Based on John D. Cook's "SimpleRNG C# library"[http://www.codeproject.com/KB/recipes/SimpleRNG.aspx].
+Based on John D. Cook's SimpleRNG[http://www.codeproject.com/KB/recipes/SimpleRNG.aspx] C# library.
 
 == Note on Patches/Pull Requests
 
