@@ -1,3 +1,5 @@
+# TODO: use Kolmogorov-Smirnov test instead: http://en.wikipedia.org/wiki/Kolmogorov_Smirnov
+
 require 'helper'
 
 SAMPLE_SIZE = 10000
