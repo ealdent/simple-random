@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "simple-random"
     gem.summary = %Q{Simple Random Number Generator}
-    gem.description = %Q{Simple Random Number Generator including Cauchy, Chi square, Exponential, Inverse gamma, Laplace (double exponential), Normal, Student t, Uniformm, and Weibull.}
+    gem.description = %Q{Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code.}
     gem.email = "jasonmadams@gmail.com"
     gem.homepage = "http://github.com/ealdent/simple-random"
     gem.authors = ["John D. Cook", "Jason Adams"]
