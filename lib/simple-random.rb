@@ -19,13 +19,16 @@ class SimpleRandom
       @m_w = x >> 16
       @m_z = x % 4294967296 # 2 ** 32
     end
+
+    @m_w %= 4294967296
+    @m_z %= 4294967296
   end
 
   # Produce a uniform random sample from the open interval (lower, upper).
   # The method will not return either end point.
   def uniform(lower = 0, upper = 1)
     raise 'Invalid range' if upper <= lower
-    ((get_unsigned_int + 1) * 2.328306435454494e-10 * (upper - lower)) + lower
+    ((get_unsigned_int + 1) * (upper - lower) / 4294967296.0) + lower
   end
 
   # Sample normal distribution with given mean and standard deviation
@@ -50,7 +53,8 @@ class SimpleRandom
       while true
         v = 0.0
         while v <= 0.0
-          v = 1.0 + c * normal
+          x = normal
+          v = 1.0 + c * x
         end
         v = v ** 3
         u = uniform
@@ -73,6 +77,11 @@ class SimpleRandom
 
   def inverse_gamma(shape, scale)
     1.0 / gamma(shape, 1.0 / scale)
+  end
+
+  def beta(a, b)
+    x = uniform
+    (x ** (a - 1)) * ((1 - x) ** (b - 1)) * gamma_function(a + b) / (gamma_function(a) * gamma_function(b))
   end
 
   def weibull(shape, scale)
@@ -110,6 +119,68 @@ class SimpleRandom
   def get_unsigned_int
     @m_z = 36969 * (@m_z & 65535) + (@m_z >> 16);
     @m_w = 18000 * (@m_w & 65535) + (@m_w >> 16);
-    (@m_z << 16) + (@m_w & 65535)
+    ((@m_z << 16) + (@m_w & 65535)) % 4294967296
+  end
+
+  def gamma_function(x)
+    g = [
+      1.0,
+      0.5772156649015329,
+      -0.6558780715202538,
+      -0.420026350340952e-1,
+      0.1665386113822915,
+      -0.421977345555443e-1,
+      -0.9621971527877e-2,
+      0.7218943246663e-2,
+      -0.11651675918591e-2,
+      -0.2152416741149e-3,
+      0.1280502823882e-3,
+      -0.201348547807e-4,
+      -0.12504934821e-5,
+      0.1133027232e-5,
+      -0.2056338417e-6,
+      0.6116095e-8,
+      0.50020075e-8,
+      -0.11812746e-8,
+      0.1043427e-9,
+      0.77823e-11,
+      -0.36968e-11,
+      0.51e-12,
+      -0.206e-13,
+      -0.54e-14,
+      0.14e-14
+    ]
+
+    r = 1.0
+
+    return 1e308 if x > 171.0
+    if x.is_a?(Fixnum) || x == x.to_i
+      if x > 0
+        ga = (2...x).inject(1.0) { |prod, i| prod * i }
+      else
+        1e308
+      end
+    else
+      if x.abs > 1.0
+        r = (1..(x.abs.to_i)).inject(1.0) { |prod, i| prod * (x.abs - i) }
+        z = x.abs - x.abs.to_i
+      else
+        z = x
+      end
+
+      gr = g[24]
+      23.downto(0).each do |i|
+        gr = gr * z + g[i]
+      end
+      ga = 1.0 / (gr * z)
+      if x.abs > 1
+        ga *= r
+        if x < 0
+          ga = -Math::PI / (x * ga * Math.sin(Math::PI * x))
+        end
+      end
+    end
+
+    ga
   end
 end
