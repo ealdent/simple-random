@@ -80,8 +80,9 @@ class SimpleRandom
   end
 
   def beta(a, b)
-    x = uniform
-    (x ** (a - 1)) * ((1 - x) ** (b - 1)) * gamma_function(a + b) / (gamma_function(a) * gamma_function(b))
+    u = gamma(a, 1)
+    v = gamma(b, 1)
+    u / (u + v)
   end
 
   def weibull(shape, scale)
