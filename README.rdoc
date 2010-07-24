@@ -1,9 +1,22 @@
 = simple-random
 
-Description goes here.
+Get random numbers sampled from the following distributions:
+
+* Beta
+* Cauchy
+* Chi square
+* Exponential
+* Inverse gamma
+* Laplace (double exponential)
+* Normal
+* Student t
+* Uniform
+* Weibull
+
+Based on John D. Cook's "SimpleRNG C# library"[http://www.codeproject.com/KB/recipes/SimpleRNG.aspx].
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
@@ -14,4 +27,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Jason Adams. See LICENSE for details.
+Distributed under the Code Project Open License, which is similar to MIT or BSD.  See LICENSE for full details (don't just take my word for it that it's similar to those licenses).
