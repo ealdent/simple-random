@@ -1,6 +1,6 @@
 = simple-random
 
-Get random numbers sampled from the following distributions:
+Generate random numbers sampled from the following distributions:
 
 * Beta
 * Cauchy
