@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{simple-random}
-  s.version = "0.9.0"
+  s.version = "0.9.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John D. Cook", "Jason Adams"]
-  s.date = %q{2010-07-24}
+  s.date = %q{2010-07-27}
   s.description = %q{Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code.}
   s.email = %q{jasonmadams@gmail.com}
   s.extra_rdoc_files = [
