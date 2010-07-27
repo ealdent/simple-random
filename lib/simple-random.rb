@@ -80,6 +80,7 @@ class SimpleRandom
   end
 
   def beta(a, b)
+    raise "Alpha and beta parameters must be positive. Received a = #{a} and b = #{b}." unless a > 0 && b > 0
     u = gamma(a, 1)
     v = gamma(b, 1)
     u / (u + v)
