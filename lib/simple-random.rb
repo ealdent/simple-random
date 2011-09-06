@@ -11,11 +11,11 @@ class SimpleRandom
     elsif args.first.is_a?(Numeric)
       @m_w = args.first.to_i if args.first.to_i != 0
     elsif args.first.is_a?(Time)
-      x = args.first.to_i
+      x = (args.first.to_f * 1000000).to_i
       @m_w = x >> 16
       @m_z = x % 4294967296 # 2 ** 32
     else
-      x = Time.now.to_i
+      x = (Time.now.to_f * 1000000).to_i
       @m_w = x >> 16
       @m_z = x % 4294967296 # 2 ** 32
     end
