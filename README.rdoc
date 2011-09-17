@@ -5,7 +5,9 @@ Generate random numbers sampled from the following distributions:
 * Beta
 * Cauchy
 * Chi square
+* Dirichlet
 * Exponential
+* Gamma
 * Inverse gamma
 * Laplace (double exponential)
 * Normal
@@ -28,3 +30,14 @@ Based on John D. Cook's SimpleRNG[http://www.codeproject.com/KB/recipes/SimpleRN
 == Copyright
 
 Distributed under the Code Project Open License, which is similar to MIT or BSD.  See LICENSE for full details (don't just take my word for it that it's similar to those licenses).
+
+== History
+
+=== 0.9.3 - 2011-09-16
+* Sample from Dirichlet distribution with given set of parameters
+
+=== 0.9.2 - 2011-09-06
+* Use microseconds for random seed
+
+=== 0.9.1 - 2010-07-27
+* First stable release

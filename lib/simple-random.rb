@@ -113,6 +113,12 @@ class SimpleRandom
     Math.exp(normal(mu, sigma))
   end
 
+  def dirichlet(*parameters)
+    sample = parameters.map { |a| gamma(a, 1) }
+    sum = sample.inject(0.0) { |sum, g| sum + g }
+    sample.map { |g| g / sum }
+  end
+
   private
 
   # This is the heart of the generator.
