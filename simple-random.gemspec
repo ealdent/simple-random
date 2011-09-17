@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{simple-random}
-  s.version = "0.9.2"
+  s.version = "0.9.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{John D. Cook}, %q{Jason Adams}]
-  s.date = %q{2011-09-06}
+  s.date = %q{2011-09-17}
   s.description = %q{Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code.}
   s.email = %q{jasonmadams@gmail.com}
   s.extra_rdoc_files = [
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/ealdent/simple-random}
   s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.7}
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{Simple Random Number Generator}
 
   if s.respond_to? :specification_version then
