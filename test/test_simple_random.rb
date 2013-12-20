@@ -31,7 +31,7 @@ end
 class TestSimpleRandom < Test::Unit::TestCase
   context "A simple random number generator" do
     setup do
-      @r = SimpleRandom.new
+      @r = SimpleRandom.instance
     end
 
     should "generate random numbers from a uniform distribution in the interval (0, 1)" do
@@ -119,5 +119,27 @@ class TestSimpleRandom < Test::Unit::TestCase
     should "generate a random number using weibull" do
       assert @r.weibull(5, 2.3)
     end
+
+    should "work independently in every thread" do
+      sample_count = 10
+      thread_count = 10
+
+      samples = Hash.new { |hash, key| hash[key] = [] }
+
+      threads = Array.new(thread_count) do
+        Thread.new do
+          sample_count.times do
+            samples[Thread.current.object_id] << SimpleRandom.instance.uniform
+          end
+        end
+      end
+
+      threads.map(&:join)
+
+      samples = samples.values
+      assert samples.size == thread_count
+      assert samples.uniq.size == 1
+    end
+
   end
 end

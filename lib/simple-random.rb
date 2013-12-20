@@ -1,8 +1,39 @@
+require 'monitor'
+
 class SimpleRandom
+
+  class << self
+
+    @instances = nil
+
+    def instance
+
+      unless @instances
+        extend MonitorMixin
+
+        self.synchronize do
+          @instances ||= {}
+        end
+      end
+
+      instance_id = Thread.current.object_id
+
+      unless @instances[instance_id]
+        self.synchronize do
+          @instances[instance_id] ||= new
+        end
+      end
+
+      @instances[instance_id]
+    end
+  end
+
   def initialize
     @m_w = 521288629
     @m_z = 362436069
   end
+
+  private_class_method :new
 
   def set_seed(*args)
     if args.size > 1
