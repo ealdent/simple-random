@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
   s.summary = %q{Simple Random Number Generator}
+  s.license = "Code Project Open License"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
