@@ -42,6 +42,19 @@ class SimpleRandom
     raise 'Mean must be positive' if mean <= 0
     -1.0 * mean * Math.log(uniform)
   end
+  
+  # Get triangular random sample with specified lower limit, mode, upper limit
+  def triangular(lower, mode, upper)
+    raise 'Upper limit must be larger than lower limit' if upper < lower
+    raise 'Mode must lie between the upper and lower limits' if (mode < lower || mode > upper)
+    f_c = (mode - lower) / (upper - lower)
+    uniform_rand_num = uniform
+    if uniform_rand_num < f_c
+      lower + Math.sqrt(uniform_rand_num * (upper - lower) * (mode - lower))
+    else
+      upper - Math.sqrt((1 - uniform_rand_num) * (upper - lower) * (upper - mode))
+    end
+  end
 
   # Implementation based on "A Simple Method for Generating Gamma Variables"
   # by George Marsaglia and Wai Wan Tsang.  ACM Transactions on Mathematical Software
