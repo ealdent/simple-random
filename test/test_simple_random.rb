@@ -70,7 +70,15 @@ class TestSimpleRandom < Test::Unit::TestCase
       assert epsilon < MAXIMUM_EPSILON
     end
     
-    should "generate random numbers from a triangular(0, 1, 1) with mean approximately 0.66" do
+    should "generate random numbers from triangular(0, 1, 1) in the range [0, 1]" do
+      SAMPLE_SIZE.times do
+        t = @r.triangular(0.0, 1.0, 1.0)
+        assert t <= 1.0
+        assert t >= 0.0
+      end
+    end
+    
+    should "generate random numbers from triangular(0, 1, 1) with mean approximately 0.66" do
       a = 0.0
       c = 1.0
       b = 1.0
