@@ -69,6 +69,28 @@ class TestSimpleRandom < Test::Unit::TestCase
 
       assert epsilon < MAXIMUM_EPSILON
     end
+    
+    should "generate random numbers from a triangular(0, 1, 1) with mean approximately 0.66" do
+      a = 0.0
+      c = 1.0
+      b = 1.0
+      numbers = generate_numbers(@r, :triangular, a, c, b)
+      mean = (a + b + c) / 3
+      epsilon = (mean - numbers.mean).abs
+
+      assert epsilon < MAXIMUM_EPSILON
+    end
+
+    should "generate random numbers from triangular(0, 1, 1) with standard deviation approximately 0.23" do
+      a = 0.0
+      c = 1.0
+      b = 1.0
+      numbers = generate_numbers(@r, :triangular, a, c, b)
+      std_dev = Math.sqrt((a**2 + b**2 + c**2 - a*b - a*c - b*c) / 18)
+      epsilon = (std_dev - numbers.standard_deviation).abs
+
+      assert epsilon < MAXIMUM_EPSILON
+    end
 
     should "generate a random number sampled from a gamma distribution" do
       assert @r.gamma(5, 2.3)
