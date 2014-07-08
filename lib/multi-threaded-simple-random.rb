@@ -1,4 +1,5 @@
 require 'monitor'
+require 'simple-random'
 
 class MultiThreadedSimpleRandom < SimpleRandom
   class << self

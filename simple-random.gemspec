@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.date = "2014-07-08"
   s.description = "Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code."
   s.email = "jasonmadams@gmail.com"
+  s.licenses = "Code Project Open License"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -38,12 +39,12 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<shoulda>, [">= 0"])
+      s.add_development_dependency(%q<shoulda>, ["~> 0"])
     else
-      s.add_dependency(%q<shoulda>, [">= 0"])
+      s.add_dependency(%q<shoulda>, ["~> 0"])
     end
   else
-    s.add_dependency(%q<shoulda>, [">= 0"])
+    s.add_dependency(%q<shoulda>, ["~> 0"])
   end
 end
 

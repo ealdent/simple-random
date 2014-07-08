@@ -1,5 +1,3 @@
-require 'multi-threaded-simple-random'
-
 class SimpleRandom
   def initialize
     @m_w = 521288629

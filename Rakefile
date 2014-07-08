@@ -10,7 +10,7 @@ begin
     gem.email = "jasonmadams@gmail.com"
     gem.homepage = "http://github.com/ealdent/simple-random"
     gem.authors = ["John D. Cook", "Jason Adams"]
-    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", "~> 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
