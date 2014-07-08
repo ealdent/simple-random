@@ -1,39 +1,10 @@
-require 'monitor'
+require 'multi-threaded-simple-random'
 
 class SimpleRandom
-
-  class << self
-
-    @instances = nil
-
-    def instance
-
-      unless @instances
-        extend MonitorMixin
-
-        self.synchronize do
-          @instances ||= {}
-        end
-      end
-
-      instance_id = Thread.current.object_id
-
-      unless @instances[instance_id]
-        self.synchronize do
-          @instances[instance_id] ||= new
-        end
-      end
-
-      @instances[instance_id]
-    end
-  end
-
   def initialize
     @m_w = 521288629
     @m_z = 362436069
   end
-
-  private_class_method :new
 
   def set_seed(*args)
     if args.size > 1
@@ -73,7 +44,7 @@ class SimpleRandom
     raise 'Mean must be positive' if mean <= 0
     -1.0 * mean * Math.log(uniform)
   end
-  
+
   # Get triangular random sample with specified lower limit, mode, upper limit
   def triangular(lower, mode, upper)
     raise 'Upper limit must be larger than lower limit' if upper < lower
