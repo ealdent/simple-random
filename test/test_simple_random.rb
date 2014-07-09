@@ -28,7 +28,7 @@ class Array
   end
 end
 
-class TestSimpleRandom < Test::Unit::TestCase
+class TestSimpleRandom < MiniTest::Test
   context "A simple random number generator" do
     setup do
       @r = SimpleRandom.new
