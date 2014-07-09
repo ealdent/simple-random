@@ -26,8 +26,9 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "lib/multi_threaded_simple_random.rb",
-    "lib/simple_random.rb",
+    "lib/simple-random.rb",
+    "lib/simple-random/multi_threaded_simple_random.rb",
+    "lib/simple-random/simple_random.rb",
     "simple-random.gemspec",
     "test/helper.rb",
     "test/test_simple_random.rb"
