@@ -34,6 +34,11 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 == History
 
+=== 1.0.0 - 2014-07-08
+* Migrate to new version of Jeweler for gem packaging
+* Merge jwroblewski's changes into a new multi-threaded simple random class
+* Change from Code Project Open License to CDDL-1.0[http://opensource.org/licenses/CDDL-1.0]
+
 === 0.10.0 - 2014-03-31
 * Sample from triangular distribution (thanks to benedictleejh[https://github.com/benedictleejh])
 
