@@ -1,6 +1,6 @@
-# TODO: use Kolmogorov-Smirnov test instead: http://en.wikipedia.org/wiki/Kolmogorov_Smirnov
-
 require 'helper'
+
+# TODO: use Kolmogorov-Smirnov test instead: http://en.wikipedia.org/wiki/Kolmogorov_Smirnov
 
 SAMPLE_SIZE = 10000
 MAXIMUM_EPSILON = 0.01
@@ -120,10 +120,8 @@ class TestSimpleRandom < Test::Unit::TestCase
       assert @r.weibull(5, 2.3)
     end
   end
-end
 
-class TestMultiThreadedSimpleRandom < Test::Unit::TestCase
-  context "A simple random number generator" do
+  context "A multi-threaded simple random number generator" do
     setup do
       @r = MultiThreadedSimpleRandom.instance
     end
