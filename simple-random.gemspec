@@ -11,16 +11,17 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["John D. Cook", "Jason Adams"]
-  s.date = "2014-07-08"
+  s.date = "2014-07-09"
   s.description = "Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code."
   s.email = "jasonmadams@gmail.com"
-  s.licenses = "Code Project Open License"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
   ]
   s.files = [
     ".document",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
@@ -32,6 +33,7 @@ Gem::Specification.new do |s|
     "test/test_simple_random.rb"
   ]
   s.homepage = "http://github.com/ealdent/simple-random"
+  s.licenses = ["CDDL-1.0"]
   s.rubygems_version = "2.2.2"
   s.summary = "Simple Random Number Generator"
 
@@ -39,12 +41,24 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<shoulda>, ["~> 0"])
+      s.add_development_dependency(%q<shoulda>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
-      s.add_dependency(%q<shoulda>, ["~> 0"])
+      s.add_dependency(%q<shoulda>, [">= 0"])
+      s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<bundler>, ["~> 1.0"])
+      s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
     end
   else
-    s.add_dependency(%q<shoulda>, ["~> 0"])
+    s.add_dependency(%q<shoulda>, [">= 0"])
+    s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<bundler>, ["~> 1.0"])
+    s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
   end
 end
 

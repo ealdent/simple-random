@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "simple-random"
   gem.homepage = "http://github.com/ealdent/simple-random"
-  gem.license = "MIT"
+  gem.licenses = "CDDL-1.0"
   gem.summary = %Q{Simple Random Number Generator}
   gem.description = %Q{Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code.}
   gem.email = "jasonmadams@gmail.com"
