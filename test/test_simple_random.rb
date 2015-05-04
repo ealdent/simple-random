@@ -159,7 +159,7 @@ class TestSimpleRandom < MiniTest::Test
       numbers = generate_numbers(@r, :exponential)
       epsilon = (1.0 - numbers.mean).abs
 
-      assert epsilon < MAXIMUM_EPSILON
+      assert epsilon < MAXIMUM_EPSILON * 2
     end
 
     should "generate random numbers from triangular(0, 1, 1) in the range [0, 1]" do
