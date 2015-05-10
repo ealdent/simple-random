@@ -20,6 +20,35 @@ Generate random numbers sampled from the following distributions:
 
 Based on [John D. Cook's SimpleRNG](http://www.codeproject.com/KB/recipes/SimpleRNG.aspx) C# library.
 
+## Installation
+
+### Plain Ruby
+
+Run `gem install simple-random` in your terminal.
+
+## Ruby on Rails
+
+Add `gem 'simple-random', '~> 1.0.0'` to your Gemfile and run `bundle install`.
+
+
+## Usage
+
+Some of the methods available:
+
+    > @sr = SimpleRandom.new # Initialize a SimpleRandom instance
+     => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069> 
+    > @sr.uniform(0, 5) # Produce a uniform random sample from the open interval (lower, upper).
+     => 0.6353204359766096 
+    > @sr.normal(1000, 200) # Sample normal distribution with given mean and standard deviation
+     => 862.5447157384566 
+    > @sr.exponential(2) # Get exponential random sample with specified mean
+     => 0.9386480625062965 
+    > @sr.triangular(0, 2.5, 10) # Get triangular random sample with specified lower limit, mode, upper limit
+     => 3.1083306054169277 
+
+See `lib/simple-random.rb` for all methods.
+
+
 ## Note on Patches/Pull Requests
 
 * Fork the project.
