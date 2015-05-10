@@ -26,7 +26,7 @@ Based on [John D. Cook's SimpleRNG](http://www.codeproject.com/KB/recipes/Simple
 
 Run `gem install simple-random` in your terminal.
 
-## Ruby on Rails
+### Ruby on Rails
 
 Add `gem 'simple-random', '~> 1.0.0'` to your Gemfile and run `bundle install`.
 
@@ -35,6 +35,7 @@ Add `gem 'simple-random', '~> 1.0.0'` to your Gemfile and run `bundle install`.
 
 Some of the methods available:
 
+``` ruby
     > @sr = SimpleRandom.new # Initialize a SimpleRandom instance
      => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069> 
     > @sr.uniform(0, 5) # Produce a uniform random sample from the open interval (lower, upper).
@@ -45,6 +46,7 @@ Some of the methods available:
      => 0.9386480625062965 
     > @sr.triangular(0, 2.5, 10) # Get triangular random sample with specified lower limit, mode, upper limit
      => 3.1083306054169277 
+```
 
 See `lib/simple-random.rb` for all methods.
 
