@@ -46,7 +46,7 @@ Some of the methods available:
      => 3.1083306054169277 
 ```
 
-See `[lib/simple-random.rb](lib/simple-random/simple_random.rb)` for all available methods.
+See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available methods.
 
 
 ## Note on Patches/Pull Requests
