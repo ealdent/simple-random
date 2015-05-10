@@ -36,6 +36,7 @@ Some of the methods available:
 ``` ruby
     > @sr = SimpleRandom.new # Initialize a SimpleRandom instance
      => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069> 
+    > @sr.set_seed # By default the same random seed is used, so we change it
     > @sr.uniform(0, 5) # Produce a uniform random sample from the open interval (lower, upper).
      => 0.6353204359766096 
     > @sr.normal(1000, 200) # Sample normal distribution with given mean and standard deviation
@@ -46,7 +47,9 @@ Some of the methods available:
      => 3.1083306054169277 
 ```
 
-See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available methods.
+Note that by default the same seed is used every time to generate the random numbers.  This means that repeated runs should yield the same results.  If you would like it to always initialize with a different seed, or if you are using multiple SimpleRandom objects, you should call `#set_seed` on the instance.
+
+See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available methods and options.
 
 
 ## Note on Patches/Pull Requests
