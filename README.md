@@ -1,6 +1,4 @@
-![Build status](https://travis-ci.org/ealdent/simple-random.svg?branch=master)
-
-# simple-random
+# simple-random ![Build status](https://travis-ci.org/ealdent/simple-random.svg?branch=master)
 
 Generate random numbers sampled from the following distributions:
 
