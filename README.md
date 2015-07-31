@@ -69,11 +69,11 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 ## History
 
 ### 1.0.1 - 2015-07-31
-* Merge purcell's changes to fix numeric seeds
+* Merge [purcell](https://github.com/purcell)'s changes to fix numeric seeds
 
 ### 1.0.0 - 2014-07-08
 * Migrate to new version of Jeweler for gem packaging
-* Merge jwroblewski's changes into a new multi-threaded simple random class
+* Merge [jwroblewski](https://github.com/jwroblewski)'s changes into a new multi-threaded simple random class
 * Change from Code Project Open License to [CDDL-1.0](http://opensource.org/licenses/CDDL-1.0)
 
 ### 0.10.0 - 2014-03-31
