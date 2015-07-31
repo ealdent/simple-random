@@ -35,16 +35,16 @@ Some of the methods available:
 
 ``` ruby
     > @sr = SimpleRandom.new # Initialize a SimpleRandom instance
-     => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069> 
+     => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069>
     > @sr.set_seed # By default the same random seed is used, so we change it
     > @sr.uniform(0, 5) # Produce a uniform random sample from the open interval (lower, upper).
-     => 0.6353204359766096 
+     => 0.6353204359766096
     > @sr.normal(1000, 200) # Sample normal distribution with given mean and standard deviation
-     => 862.5447157384566 
+     => 862.5447157384566
     > @sr.exponential(2) # Get exponential random sample with specified mean
-     => 0.9386480625062965 
+     => 0.9386480625062965
     > @sr.triangular(0, 2.5, 10) # Get triangular random sample with specified lower limit, mode, upper limit
-     => 3.1083306054169277 
+     => 3.1083306054169277
 ```
 
 Note that by default the same seed is used every time to generate the random numbers.  This means that repeated runs should yield the same results.  If you would like it to always initialize with a different seed, or if you are using multiple SimpleRandom objects, you should call `#set_seed` on the instance.
@@ -67,6 +67,9 @@ See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available
 Distributed under the Code Project Open License, which is similar to MIT or BSD.  See LICENSE for full details (don't just take my word for it that it's similar to those licenses).
 
 ## History
+
+### 1.0.1 - 2015-07-31
+* Merge purcell's changes to fix numeric seeds
 
 ### 1.0.0 - 2014-07-08
 * Migrate to new version of Jeweler for gem packaging
