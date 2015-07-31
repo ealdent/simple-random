@@ -232,5 +232,17 @@ class TestSimpleRandom < MiniTest::Test
       assert samples.size == thread_count
       assert samples.uniq.size == 1
     end
+
+    should "provide different results with different integer seeds" do
+      r1 = SimpleRandom.new
+      r1.set_seed(2)
+      r2 = SimpleRandom.new
+      r2.set_seed(1234512343214134)
+
+      r1_randoms = 100.times.map { r1.uniform(0, 10).floor }
+      r2_randoms = 100.times.map { r2.uniform(0, 10).floor }
+
+      assert r1_randoms != r2_randoms
+    end
   end
 end

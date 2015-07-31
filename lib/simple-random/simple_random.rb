@@ -9,7 +9,7 @@ class SimpleRandom
       @m_w = args.first.to_i if args.first.to_i != 0
       @m_z = args.last.to_i if args.last.to_i != 0
     elsif args.first.is_a?(Numeric)
-      @m_w = args.first.to_i if args.first.to_i != 0
+      @m_z = args.first.to_i if args.first.to_i != 0
     elsif args.first.is_a?(Time)
       x = (args.first.to_f * 1000000).to_i
       @m_w = x >> 16
