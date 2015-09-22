@@ -118,8 +118,9 @@ class SimpleRandom
   end
 
   def laplace(mean, scale)
-    u = uniform
-    mean + Math.log(2) + ((u < 0.5 ? 1 : -1) * scale * Math.log(u < 0.5 ? u : 1 - u))
+    u_1 = uniform
+    u_2 = uniform
+    mean + ((u_1 < 0.5 ? 1 : -1) * scale * Math.log( 1-2*(u_2-0.5).abs))
   end
 
   def log_normal(mu, sigma)
