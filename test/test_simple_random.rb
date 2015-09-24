@@ -192,6 +192,15 @@ class TestSimpleRandom < MiniTest::Test
       assert epsilon < MAXIMUM_EPSILON
     end
 
+    should "generate random numbers from laplace(0, 1) with mean approximately 0" do
+      mean = 0.0
+      scale = 0.1
+      numbers = generate_numbers(@r, :laplace, mean, scale)
+      epsilon = (mean - numbers.mean).abs
+
+      assert epsilon < MAXIMUM_EPSILON
+    end
+    
     should "generate a random number sampled from a gamma distribution" do
       assert @r.gamma(5, 2.3)
     end
