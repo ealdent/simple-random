@@ -68,6 +68,9 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 ## History
 
+### 1.0.2 - 2015-11-24
+* Merge pull request from [cunchem](https://github.com/cunchem) to fix Laplace method
+
 ### 1.0.1 - 2015-07-31
 * Merge [purcell](https://github.com/purcell)'s changes to fix numeric seeds
 

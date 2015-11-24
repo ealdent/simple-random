@@ -21,3 +21,5 @@ pkg
 ## PROJECT::SPECIFIC
 .rbenv-version
 .rvmrc
+.ruby-version
+.ruby-gemset
