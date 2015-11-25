@@ -6,6 +6,7 @@ source "http://rubygems.org"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
+  gem "awesome_print", ">= 1.6"
   gem "minitest", ">= 0"
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"

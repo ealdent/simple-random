@@ -200,7 +200,7 @@ class TestSimpleRandom < MiniTest::Test
 
       assert epsilon < MAXIMUM_EPSILON
     end
-    
+
     should "generate a random number sampled from a gamma distribution" do
       assert @r.gamma(5, 2.3)
     end
