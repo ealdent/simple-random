@@ -68,6 +68,10 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 ## History
 
+### 1.0.3 - 2015-11-25
+* Attempt to reduce code complexity and improve readability
+* Change error handling somewhat to throw specific errors and improve messages
+
 ### 1.0.2 - 2015-11-24
 * Merge pull request from [cunchem](https://github.com/cunchem) to fix Laplace method
 
