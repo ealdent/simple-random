@@ -34,16 +34,16 @@ Add `gem 'simple-random', '~> 1.0.0'` to your Gemfile and run `bundle install`.
 Some of the methods available:
 
 ``` ruby
-    > @sr = SimpleRandom.new # Initialize a SimpleRandom instance
+    > r = SimpleRandom.new                 # Initialize a SimpleRandom instance
      => #<SimpleRandom:0x007f9e3ad58010 @m_w=521288629, @m_z=362436069>
-    > @sr.set_seed # By default the same random seed is used, so we change it
-    > @sr.uniform(0, 5) # Produce a uniform random sample from the open interval (lower, upper).
+    > r.set_seed                           # By default the same random seed is used, so we change it
+    > r.uniform(0, 5)                      # Produce a uniform random sample from the open interval (lower, upper).
      => 0.6353204359766096
-    > @sr.normal(1000, 200) # Sample normal distribution with given mean and standard deviation
+    > r.normal(1000, 200)                  # Sample normal distribution with given mean and standard deviation
      => 862.5447157384566
-    > @sr.exponential(2) # Get exponential random sample with specified mean
+    > r.exponential(2)                     # Get exponential random sample with specified mean
      => 0.9386480625062965
-    > @sr.triangular(0, 2.5, 10) # Get triangular random sample with specified lower limit, mode, upper limit
+    > r.triangular(0, 2.5, 10)             # Get triangular random sample with specified lower limit, mode, upper limit
      => 3.1083306054169277
 ```
 
@@ -56,11 +56,12 @@ See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available
 
 * Fork the project.
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
+* Add tests for it. This is important so I don't break it in a future version unintentionally.
+* Commit, but please do not mess with the gemspec, `Rakefile`, `VERSION`, `LICENSE`, or `.travis.yml`.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+* Send me a pull request.
+
+HT: This list was modified from the default instructions that ship with [jeweler](https://github.com/technicalpickles/jeweler).
 
 ## Copyright
 
