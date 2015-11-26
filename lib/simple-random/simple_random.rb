@@ -1,27 +1,32 @@
 class SimpleRandom
   class InvalidSeedArgument < StandardError; end
 
-  C_32_BIT = 4294967296
-  F_32_BIT = 4294967296.0
+  I_32_BIT        = 4294967296
+  F_32_BIT        = 4294967296.0
+  DEFAULT_SEEDS   = [521288629, 362436069]
 
-  def initialize
-    @m_w = 521288629
-    @m_z = 362436069
+  def initialize(*args)
+    if args.empty?
+      set_seed(*DEFAULT_SEEDS)
+    else
+      set_seed(*args)
+    end
   end
 
   def set_seed(*args)
     validate_seeds!(*args)
 
-    @m_w, @m_z = if args.size > 1
-      args[0..1].map(&:to_i)
-    elsif args.first.is_a?(Numeric)
-      [@m_w, args.first.to_i]
-    else
-      generate_temporal_seed(args.first || Time.now)
-    end
+    @m_w, @m_z = determine_seeds(*args)
 
-    @m_w %= C_32_BIT
-    @m_z %= C_32_BIT
+    ensure_32bit_seeds!
+  end
+
+  def seeds=(value)
+    set_seed(*[value].flatten.compact)
+  end
+
+  def seeds
+    [@m_w, @m_z]
   end
 
   # Produce a uniform random sample from the open interval (lower, upper).
@@ -156,11 +161,11 @@ class SimpleRandom
   def validate_seeds!(*args)
     return true if args.compact.empty?
 
-    unless args[0].to_f.abs > 0
+    unless args[0].to_f > 0
       fail InvalidSeedArgument, 'Seeds must be strictly positive'
     end
 
-    unless args[1].nil? || args[1].to_f.abs > 0
+    unless args[1].nil? || args[1].to_f > 0
       fail InvalidSeedArgument, 'Seeds must be strictly positive'
     end
 
@@ -204,6 +209,17 @@ class SimpleRandom
         r / (gr * z)
       end
     end
+  end
+
+  def ensure_32bit_seeds!
+    @m_w = @m_w.to_i % I_32_BIT
+    @m_z = @m_z.to_i % I_32_BIT
+  end
+
+  def determine_seeds(*args)
+    return generate_temporal_seed(args.first || Time.now) if args.empty? || args.first.respond_to?(:iso8601)
+    return [DEFAULT_SEEDS.first, args.first] if args.size < 2
+    args[0..1]
   end
 
   GAMMA_NAUGHT = 0.14e-14

@@ -12,7 +12,7 @@ end
 class Array
   def mean
     if size > 0
-      inject(0.0) { |sum, i| sum + i } / size.to_f
+      inject(&:+) / size.to_f
     else
       0.0
     end
@@ -28,7 +28,57 @@ class Array
   end
 end
 
+def Time.now
+  new(2015, 11, 26, 12, 1, 15, '-05:00')
+end
+
 class TestSimpleRandom < MiniTest::Test
+  context "Setting the seeds for a simple random number generator" do
+    context "on initialization" do
+      should "assign default seeds when none are specified" do
+        r = SimpleRandom.new
+        assert r.seeds == SimpleRandom::DEFAULT_SEEDS
+      end
+
+      should "assign the seeds specified in the initializer" do
+        r = SimpleRandom.new(1, 2)
+        assert r.seeds == [1, 2]
+      end
+
+      should "reject negative seed values" do
+        assert_raises SimpleRandom::InvalidSeedArgument do
+          SimpleRandom.new(-1, 3)
+        end
+      end
+    end
+
+    context 'after initialization' do
+      setup do
+        @r = SimpleRandom.new
+      end
+
+      should "accept a single value and leave the first seed the same" do
+        @r.seeds = 1
+        assert @r.seeds == [521288629, 1]
+      end
+
+      should "update the seeds when given an array of values" do
+        @r.seeds = [1, 2]
+        assert @r.seeds == [1, 2]
+      end
+
+      should "accept a timestamp instead of an numeric value" do
+        @r.seeds = Time.parse('2015-01-01T00:00:00.000-0500')
+        assert @r.seeds == [193992865, 413250560]
+      end
+
+      should "use the current timestamp when nothing is specified" do
+        @r.seeds = nil
+        assert @r.seeds == [628393424, 2245012672]
+      end
+    end
+  end
+
   context "A simple random number generator" do
     setup do
       @r = SimpleRandom.new

@@ -1,4 +1,8 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'simplecov'
+require 'awesome_print'
 
 module SimpleCov::Configuration
   def clean_filters
