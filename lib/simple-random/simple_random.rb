@@ -70,30 +70,25 @@ class SimpleRandom
   # Vol 26, No 3, September 2000, pages 363-372.
   def gamma(shape, scale)
     fail ArgumentError, 'Shape must be strictly positive' unless shape > 0
+    return scale * gamma(shape + 1.0, 1.0) * uniform ** -shape if shape < 1
 
-    base = if shape < 1
-      gamma(shape + 1.0, 1.0) * uniform ** -shape
-    else
-      d = shape - 1 / 3.0
-      c = (9 * d) ** -0.5
+    d = shape - 1 / 3.0
+    c = (9 * d) ** -0.5
 
-      begin
-        z = normal
+    begin
+      z = normal
 
-        condition1 = z > (-1.0 / c)
-        condition2 = false
+      condition1 = z > (-1.0 / c)
+      condition2 = false
 
-        if condition1
-          u = uniform
-          v = (1 + c * z) ** 3
-          condition2 = Math.log(u) < (0.5 * (z ** 2) + d * (1.0 - v + Math.log(v)))
-        end
-      end while !condition2
+      if condition1
+        u = uniform
+        v = (1 + c * z) ** 3
+        condition2 = Math.log(u) < (0.5 * (z ** 2) + d * (1.0 - v + Math.log(v)))
+      end
+    end while !condition2
 
-      d * v
-    end
-
-    scale * base
+    scale * d * v
   end
 
   def chi_square(degrees_of_freedom)
