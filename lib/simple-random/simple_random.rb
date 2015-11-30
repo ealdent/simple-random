@@ -55,13 +55,13 @@ class SimpleRandom
     fail ArgumentError, 'Upper bound must be greater than lower bound.' unless lower < upper
     fail ArgumentError, 'Mode must lie between the upper and lower limits' if mode > upper || mode < lower
 
-    f_c = (mode - lower) / (upper - lower)
-    uniform_rand_num = uniform
+    r = (upper - lower).to_f
+    u = uniform
 
-    if uniform_rand_num < f_c
-      lower + Math.sqrt(uniform_rand_num * (upper - lower) * (mode - lower))
+    if u < ((mode - lower) / r)
+      lower + Math.sqrt(u * r * (mode - lower))
     else
-      upper - Math.sqrt((1 - uniform_rand_num) * (upper - lower) * (upper - mode))
+      upper - Math.sqrt((1.0 - u) * r * (upper - mode))
     end
   end
 
