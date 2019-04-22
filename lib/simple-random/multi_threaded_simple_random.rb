@@ -5,8 +5,7 @@ class MultiThreadedSimpleRandom < SimpleRandom
     @instances = nil
 
     def instance
-
-      unless @instances
+      unless instance_variable_defined?('@instances') && @instances
         extend MonitorMixin
 
         self.synchronize do
