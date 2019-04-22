@@ -1,8 +1,22 @@
+# single test suite, non-parallel build.
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=fc1330064eb82caf0f39ecd509e3e1c5b4fc5ca8b02fb9fa63d6e8a92da5ad18
 language: ruby
 rvm:
   - 2.6
   - 2.5
   - 2.4
-  - 2.3
-  - jruby-19mode
-  - jruby-head
+  - 2.3.6
+  - 2.2.0
+before_install:
+  - gem install bundler  --version 1.17.3
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rake test
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
