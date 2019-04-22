@@ -11,7 +11,7 @@ rvm:
   - 2.3.6
   - 2.2.0
 before_install:
-  - gem install bundler  --version 1.17.3 --no-rdoc --no-ri
+  - gem install bundler  --version 1.17.3
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
