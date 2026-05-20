@@ -69,6 +69,9 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 ## History
 
+### 1.0.5 - 2026-05-20
+* Remove development dependency metadata from the published gemspec
+
 ### 1.0.4 - 2026-02-18
 * Remove vulnerable development dependency declarations for `bundler` and `rdoc`
 * Replace obsolete Jeweler/RDoc release tasks with a plain gem build task
