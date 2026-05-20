@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".travis.yml",
     "Gemfile",
     "LICENSE",
     "README.md",

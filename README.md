@@ -1,4 +1,4 @@
-# simple-random ![Build status](https://travis-ci.com/ealdent/simple-random.svg?branch=master)
+# simple-random [![CI](https://github.com/ealdent/simple-random/actions/workflows/ci.yml/badge.svg)](https://github.com/ealdent/simple-random/actions/workflows/ci.yml)
 
 Generate random numbers sampled from the following distributions:
 
