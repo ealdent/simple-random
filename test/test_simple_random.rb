@@ -32,7 +32,7 @@ def Time.now
   new(2015, 11, 26, 12, 1, 15, '-05:00')
 end
 
-class TestSimpleRandom < MiniTest::Test
+class TestSimpleRandom < Minitest::Test
   context "Setting the seeds for a simple random number generator" do
     context "on initialization" do
       should "assign default seeds when none are specified" do

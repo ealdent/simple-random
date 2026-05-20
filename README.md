@@ -71,6 +71,7 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 ### 1.0.4 - 2026-02-18
 * Remove vulnerable development dependency declarations for `bundler` and `rdoc`
+* Replace obsolete Jeweler/RDoc release tasks with a plain gem build task
 * Use `https://rubygems.org` as the gem source in development
 
 ### 1.0.3 - 2015-11-25
