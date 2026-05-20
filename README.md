@@ -52,16 +52,44 @@ Note that by default the same seed is used every time to generate the random num
 See [lib/simple-random.rb](lib/simple-random/simple_random.rb) for all available methods and options.
 
 
-## Note on Patches/Pull Requests
+## Development
+
+Install the development dependencies with Bundler:
+
+``` sh
+bundle install
+```
+
+Run the test suite:
+
+``` sh
+bundle exec rake test
+```
+
+Build the gem locally:
+
+``` sh
+bundle exec rake build
+```
+
+Generate local coverage output when needed:
+
+``` sh
+bundle exec rake simplecov
+```
+
+GitHub Actions runs the test suite and gem build on Ruby 2.6 and Ruby 3.0 through 3.4.
+
+## Contributing
 
 * Fork the project.
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, but please do not mess with the gemspec, `Rakefile`, `VERSION`, `LICENSE`, or `.travis.yml`.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request.
+* Add or update tests for behavioral changes.
+* Run `bundle exec rake test` before opening a pull request.
+* Keep release-only files such as `VERSION` and `simple-random.gemspec` unchanged unless the pull request is specifically preparing a release.
+* Send a pull request.
 
-HT: This list was modified from the default instructions that ship with [jeweler](https://github.com/technicalpickles/jeweler).
+The project uses plain Bundler, Rake, and GitHub Actions. It no longer uses Jeweler, Travis CI, or Code Climate.
 
 ## Copyright
 
