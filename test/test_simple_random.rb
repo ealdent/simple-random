@@ -121,6 +121,45 @@ class TestSimpleRandom < Minitest::Test
       assert_equal expected, Array.new(3) { @r.uniform }
     end
 
+    should "exclude rounded endpoints for narrow bounds with an offset" do
+      generators = [
+        SimpleRandom.new(1179647999, 2422800383),
+        SimpleRandom.new(4294967296, 4294967296)
+      ]
+
+      [[1.0, 1.00000001], [-1.00000001, -1.0]].each do |lower, upper|
+        generators.each do |generator|
+          sample = generator.uniform(lower, upper)
+          assert_operator sample, :>, lower
+          assert_operator sample, :<, upper
+        end
+      end
+    end
+
+    should "return the only representable interior float when bounds are very close" do
+      lower = 1.0
+      interior = lower.next_float
+      upper = interior.next_float
+
+      assert_equal interior, SimpleRandom.new(1179647999, 2422800383).uniform(lower, upper)
+      assert_equal interior, SimpleRandom.new(4294967296, 4294967296).uniform(lower, upper)
+    end
+
+    should "keep samples inside integer bounds that round during float conversion" do
+      lower = 2 ** 53 + 3
+      upper = 2 ** 53 + 5
+      sample = SimpleRandom.new(1179647999, 2422800383).uniform(lower, upper)
+
+      assert_operator sample, :>, lower
+      assert_operator sample, :<, upper
+    end
+
+    should "reject bounds with no representable interior float" do
+      [[1.0, 1.0.next_float], [-1.0, (-1.0).next_float], [0.0, 0.0.next_float]].each do |lower, upper|
+        assert_raises(ArgumentError) { @r.uniform(lower, upper) }
+      end
+    end
+
     should "generate uniformly random numbers with mean approximately 0.5" do
       numbers = generate_numbers(@r, :uniform)
       epsilon = (0.5 - numbers.mean).abs

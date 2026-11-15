@@ -30,6 +30,7 @@ class SimpleRandom
   end
 
   # Produce a uniform random sample from the open interval (lower, upper).
+  # Raise ArgumentError if the bounds contain no representable interior float.
   def uniform(lower = 0, upper = 1)
     fail ArgumentError, 'Upper bound must be greater than lower bound.' unless lower < upper
 
@@ -37,7 +38,22 @@ class SimpleRandom
     # Keep the largest integer below the upper bound without changing other samples.
     sample -= 0.5 if sample == I_32_BIT
 
-    (sample * (upper - lower) / F_32_BIT) + lower
+    value = (sample * (upper - lower) / F_32_BIT) + lower
+
+    # Scaling and translation can round a sample back onto an excluded endpoint.
+    if value <= lower
+      value = lower.to_f
+      value = value.next_float if value <= lower
+    elsif value >= upper
+      value = upper.to_f
+      value = value.prev_float if value >= upper
+    end
+
+    unless lower < value && value < upper
+      fail ArgumentError, 'Bounds must contain a representable interior float.'
+    end
+
+    value
   end
 
   # Sample normal distribution with given mean and standard deviation
