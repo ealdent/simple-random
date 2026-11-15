@@ -121,6 +121,55 @@ class TestSimpleRandom < Minitest::Test
       assert_equal expected, Array.new(3) { @r.uniform }
     end
 
+    should "preserve finite seeded samples with nondefault bounds" do
+      expected = [0.12541281743906438, 0.19361304077319802, 0.2811658025253564]
+      assert_equal expected, Array.new(3) { @r.uniform(0.1, 0.3) }
+    end
+
+    should "preserve distinct draws across wide finite intervals" do
+      [
+        [0.0, 1e308],
+        [-1e308, 0.0],
+        [-Float::MAX, Float::MAX],
+        [Float::MAX / 2, Float::MAX],
+        [-Float::MAX, -Float::MAX / 2]
+      ].each do |lower, upper|
+        generator = SimpleRandom.new
+        reference = SimpleRandom.new
+
+        samples = Array.new(3) do
+          sample = generator.uniform(lower, upper)
+          # Exact rational arithmetic supplies an independent interpolation reference.
+          expected = (lower.to_r + reference.uniform.to_r * (upper.to_r - lower.to_r)).to_f
+
+          assert sample.finite?
+          assert_operator sample, :>, lower
+          assert_operator sample, :<, upper
+          assert_in_delta expected, sample, expected.abs * 1e-14
+          sample
+        end
+
+        assert_equal 3, samples.uniq.size
+      end
+    end
+
+    should "preserve extreme seeded draws across the widest finite interval" do
+      samples = [
+        SimpleRandom.new(1179647999, 2422800383),
+        SimpleRandom.new(4294967296, 4294967296)
+      ].map do |generator|
+        sample = generator.uniform(-Float::MAX, Float::MAX)
+
+        assert sample.finite?
+        assert_operator sample, :>, -Float::MAX
+        assert_operator sample, :<, Float::MAX
+        sample
+      end
+
+      assert_operator samples.first, :>, 0
+      assert_operator samples.last, :<, 0
+    end
+
     should "exclude rounded endpoints for narrow bounds with an offset" do
       generators = [
         SimpleRandom.new(1179647999, 2422800383),

@@ -40,6 +40,17 @@ class SimpleRandom
 
     value = (sample * (upper - lower) / F_32_BIT) + lower
 
+    # Recompute overflowed intermediates without changing finite seeded results.
+    if !value.finite? && lower.to_f.finite? && upper.to_f.finite?
+      fraction = sample / F_32_BIT
+      value = if lower < 0 && upper > 0
+        # Opposite-sign bounds can overflow when subtracted.
+        (1.0 - fraction) * lower + fraction * upper
+      else
+        lower + fraction * (upper - lower)
+      end
+    end
+
     # Scaling and translation can round a sample back onto an excluded endpoint.
     if value <= lower
       value = lower.to_f
