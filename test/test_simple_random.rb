@@ -1,4 +1,6 @@
 require 'helper'
+require 'timeout'
+require 'weakref'
 
 # TODO: use Kolmogorov-Smirnov test instead: http://en.wikipedia.org/wiki/Kolmogorov_Smirnov
 
@@ -104,6 +106,21 @@ class TestSimpleRandom < Minitest::Test
       end
     end
 
+    should "exclude the upper bound even with fixed-point seeds" do
+      r = SimpleRandom.new(1179647999, 2422800383)
+
+      3.times do
+        assert_operator r.uniform, :>, 0
+        assert_operator r.uniform, :<, 1
+        assert_operator r.uniform(-5, 5), :<, 5
+      end
+    end
+
+    should "preserve seeded samples away from the upper endpoint" do
+      expected = [0.12706408719532192, 0.46806520386599004, 0.9058290126267821]
+      assert_equal expected, Array.new(3) { @r.uniform }
+    end
+
     should "generate uniformly random numbers with mean approximately 0.5" do
       numbers = generate_numbers(@r, :uniform)
       epsilon = (0.5 - numbers.mean).abs
@@ -180,6 +197,40 @@ class TestSimpleRandom < Minitest::Test
       assert @r.gamma(2.3, 2)
     end
 
+    should "reject gamma shapes that cannot be represented as finite floats" do
+      [Float::INFINITY, -Float::INFINITY, Float::NAN, 10 ** 400].each do |shape|
+        Timeout.timeout(2) do
+          assert_raises(ArgumentError) { @r.gamma(shape, 1) }
+        end
+      end
+    end
+
+    should "reject infinite shapes in distributions that use gamma" do
+      [
+        [:chi_square, Float::INFINITY],
+        [:inverse_gamma, Float::INFINITY, 1],
+        [:beta, 1, Float::INFINITY],
+        [:student_t, Float::INFINITY],
+        [:dirichlet, 1, Float::INFINITY]
+      ].each do |method, *args|
+        Timeout.timeout(2) do
+          assert_raises(ArgumentError) { @r.public_send(method, *args) }
+        end
+      end
+    end
+
+    should "finish gamma sampling with fixed-point seeds" do
+      r = SimpleRandom.new(1179647999, 2422800383)
+
+      Timeout.timeout(2) do
+        [0.5, 1, 5].each do |shape|
+          sample = r.gamma(shape, 1)
+          assert sample.finite?
+          assert_operator sample, :>, 0
+        end
+      end
+    end
+
     should "generate a random number sampled from an inverse gamma distribution" do
       assert @r.inverse_gamma(5, 2.3)
       assert @r.inverse_gamma(5.7, 2.8)
@@ -215,6 +266,31 @@ class TestSimpleRandom < Minitest::Test
   context "A multi-threaded simple random number generator" do
     setup do
       @r = MultiThreadedSimpleRandom.instance
+    end
+
+    should "reuse the same generator across calls and fibers in one thread" do
+      assert_same @r, MultiThreadedSimpleRandom.instance
+      assert_same @r, Fiber.new { MultiThreadedSimpleRandom.instance }.resume
+    end
+
+    should "keep generators separate between threads and subclasses" do
+      other = Thread.new { MultiThreadedSimpleRandom.instance }.value
+      subclass = Class.new(MultiThreadedSimpleRandom)
+
+      refute_same @r, other
+      assert_instance_of subclass, subclass.instance
+      assert_same subclass.instance, subclass.instance
+      refute_same @r, subclass.instance
+    end
+
+    should "allow generators from finished threads to be garbage collected" do
+      references = Array.new(20) do
+        Thread.new { WeakRef.new(MultiThreadedSimpleRandom.instance) }.value
+      end
+
+      3.times { GC.start }
+
+      assert references.none?(&:weakref_alive?)
     end
 
     should "work independently in every thread" do

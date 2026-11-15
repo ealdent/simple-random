@@ -33,7 +33,11 @@ class SimpleRandom
   def uniform(lower = 0, upper = 1)
     fail ArgumentError, 'Upper bound must be greater than lower bound.' unless lower < upper
 
-    ((get_unsigned_int + 1) * (upper - lower) / F_32_BIT) + lower
+    sample = get_unsigned_int + 1
+    # Keep the largest integer below the upper bound without changing other samples.
+    sample -= 0.5 if sample == I_32_BIT
+
+    (sample * (upper - lower) / F_32_BIT) + lower
   end
 
   # Sample normal distribution with given mean and standard deviation
@@ -69,7 +73,9 @@ class SimpleRandom
   # by George Marsaglia and Wai Wan Tsang.  ACM Transactions on Mathematical Software
   # Vol 26, No 3, September 2000, pages 363-372.
   def gamma(shape, scale)
-    fail ArgumentError, 'Shape must be strictly positive' unless shape > 0
+    unless shape > 0 && shape.to_f.finite?
+      fail ArgumentError, 'Shape must be finite and strictly positive'
+    end
     return scale * gamma(shape + 1.0, 1.0) * uniform ** -shape if shape < 1
 
     d = shape - 1 / 3.0

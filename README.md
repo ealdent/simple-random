@@ -18,6 +18,27 @@ Generate random numbers sampled from the following distributions:
 
 Based on [John D. Cook's SimpleRNG](http://www.codeproject.com/KB/recipes/SimpleRNG.aspx) C# library.
 
+## Security
+
+**Do not use `SimpleRandom` or `MultiThreadedSimpleRandom` for security-sensitive randomness.**
+They are deterministic generators for statistical sampling, not cryptographically secure
+random number generators. The default seeds are fixed, and calling `set_seed` without
+arguments uses the current time. Changing the seed does not make the generator secure.
+
+For passwords, password-reset tokens, session tokens, encryption keys, or other values
+that must be unpredictable, use Ruby's
+[`SecureRandom`](https://docs.ruby-lang.org/en/3.4/SecureRandom.html):
+
+``` ruby
+require 'securerandom'
+
+# 32 random bytes, encoded as 64 hexadecimal characters
+token = SecureRandom.hex(32)
+
+# An integer from 0 through 99
+number = SecureRandom.random_number(100)
+```
+
 ## Installation
 
 ### Plain Ruby
