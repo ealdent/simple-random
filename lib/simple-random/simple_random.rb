@@ -30,10 +30,41 @@ class SimpleRandom
   end
 
   # Produce a uniform random sample from the open interval (lower, upper).
+  # Raise ArgumentError if the bounds contain no representable interior float.
   def uniform(lower = 0, upper = 1)
     fail ArgumentError, 'Upper bound must be greater than lower bound.' unless lower < upper
 
-    ((get_unsigned_int + 1) * (upper - lower) / F_32_BIT) + lower
+    sample = get_unsigned_int + 1
+    # Keep the largest integer below the upper bound without changing other samples.
+    sample -= 0.5 if sample == I_32_BIT
+
+    value = (sample * (upper - lower) / F_32_BIT) + lower
+
+    # Recompute overflowed intermediates without changing finite seeded results.
+    if !value.finite? && lower.to_f.finite? && upper.to_f.finite?
+      fraction = sample / F_32_BIT
+      value = if lower < 0 && upper > 0
+        # Opposite-sign bounds can overflow when subtracted.
+        (1.0 - fraction) * lower + fraction * upper
+      else
+        lower + fraction * (upper - lower)
+      end
+    end
+
+    # Scaling and translation can round a sample back onto an excluded endpoint.
+    if value <= lower
+      value = lower.to_f
+      value = value.next_float if value <= lower
+    elsif value >= upper
+      value = upper.to_f
+      value = value.prev_float if value >= upper
+    end
+
+    unless lower < value && value < upper
+      fail ArgumentError, 'Bounds must contain a representable interior float.'
+    end
+
+    value
   end
 
   # Sample normal distribution with given mean and standard deviation
@@ -69,7 +100,9 @@ class SimpleRandom
   # by George Marsaglia and Wai Wan Tsang.  ACM Transactions on Mathematical Software
   # Vol 26, No 3, September 2000, pages 363-372.
   def gamma(shape, scale)
-    fail ArgumentError, 'Shape must be strictly positive' unless shape > 0
+    unless shape > 0 && shape.to_f.finite?
+      fail ArgumentError, 'Shape must be finite and strictly positive'
+    end
     return scale * gamma(shape + 1.0, 1.0) * uniform ** -shape if shape < 1
 
     d = shape - 1 / 3.0
