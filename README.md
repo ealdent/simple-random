@@ -118,6 +118,12 @@ Distributed under the Code Project Open License, which is similar to MIT or BSD.
 
 ## History
 
+### 1.0.6 - 2026-11-15
+* Prevent gamma sampling hangs for non-finite shapes and fixed-point seeds
+* Keep uniform samples inside their documented open interval, including narrow and very wide bounds; reject intervals with no representable interior float
+* Allow generators from finished threads to be garbage collected while preserving sharing across fibers within a thread
+* Document that these generators are unsuitable for security-sensitive randomness and recommend Ruby's `SecureRandom`
+
 ### 1.0.5 - 2026-05-20
 * Remove development dependency metadata from the published gemspec
 

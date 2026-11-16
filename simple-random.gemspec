@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |s|
   s.name = "simple-random"
-  s.version = "1.0.5"
+  s.version = "1.0.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["John D. Cook", "Jason Adams"]
-  s.date = "2026-05-20"
+  s.date = "2026-11-15"
   s.description = "Simple Random Number Generator including Beta, Cauchy, Chi square, Exponential, Gamma, Inverse Gamma, Laplace (double exponential), Normal, Student t, Uniform, and Weibull.  Ported from John D. Cook's C# Code."
   s.email = "jasonmadams@gmail.com"
   s.extra_rdoc_files = [
